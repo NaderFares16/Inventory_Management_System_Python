@@ -57,3 +57,25 @@ class Management:
     )
     products = cursor.fetchall()
     return [product[0] for product in products]
+  
+System = Management("inventory.db")
+
+# ADD PRODUCT IN DATABASE (PRODUCT / AMOUNT)
+
+System.add_product("T-Shirt", 20)
+System.add_product("Pants", 30)
+System.add_product("Shoes", 15)
+
+# CONSULT THE AMOUNT OF PRODUCT
+
+shirt_stock = System.consult_product("T-Shirt")
+print(f"Amount of T-Shirts in Stock: {shirt_stock}")
+
+# REMOVE PRODUCT AMOUNT IN DATABASE
+
+System.remove_product("Pants", 20)
+
+# LIST PRODUCTS IN DATABASE
+
+products_stock = System.list_products()
+print(f"Products in Stock: {products_stock}")
