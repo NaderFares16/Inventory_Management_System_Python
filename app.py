@@ -15,3 +15,10 @@ class Management:
       )
     ''')
     self.conn.commit()
+
+  def add_product(self, product, amount):
+    cursor = self.conn.cursor()
+    cursor.execute(
+      "INSERT INTO inventory (product, amount) VALUES (?, ?)", (product, amount)
+    )
+    self.conn.commit()
