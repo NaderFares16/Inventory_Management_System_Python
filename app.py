@@ -22,3 +22,21 @@ class Management:
       "INSERT INTO inventory (product, amount) VALUES (?, ?)", (product, amount)
     )
     self.conn.commit()
+
+  def remove_product(self, product, amount):
+    cursor = self.conn.cursor()
+    cursor.execute(
+      "SELECT amount FROM inventory WHERE product=?", (product,)
+    )
+    result = cursor.fetchone()
+    if result:
+      currentInventory = result[0]
+      if currentInventory >= amount:
+        cursor.execute("UPDATE inventory SET amount=? WHERE product=?",
+        (currentInventory - amount, product))
+        self.conn.commit()
+      else:
+        print(f"Insufficient amount of {product} in stock.")
+    else:
+      print(f"{product} not found in stock.")
+        
