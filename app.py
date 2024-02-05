@@ -39,4 +39,15 @@ class Management:
         print(f"Insufficient amount of {product} in stock.")
     else:
       print(f"{product} not found in stock.")
-        
+
+  def consult_product(self, product):
+    cursor = self.conn.cursor()
+    cursor.execute(
+      "SELECT amount FROM inventory WHERE product=?", (product,))
+    result = cursor.fetchone()
+    if result:
+      return result[0]
+    else:
+      return 0
+    
+  
