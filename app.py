@@ -50,4 +50,10 @@ class Management:
     else:
       return 0
     
-  
+  def list_products(self):
+    cursor = self.conn.cursor()
+    cursor.execute(
+      "SELECT product FROM inventory"
+    )
+    products = cursor.fetchall()
+    return [product[0] for product in products]
